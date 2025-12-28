@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/challenges")
-@CrossOrigin(origins = "*")
 
 public class ChallengeController {
     private ChallengeService challengeService;
