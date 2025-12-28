@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/challenges")
-@CrossOrigin(origins = "https://to-do-front-end-lilac.vercel.app/challenges")
+@CrossOrigin(origins = "https://to-do-front-end-lilac.vercel.app")
 
 public class ChallengeController {
     private ChallengeService challengeService;
