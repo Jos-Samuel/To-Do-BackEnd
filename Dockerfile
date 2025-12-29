@@ -1,9 +1,15 @@
-FROM eclipse-temurin:17-jdk AS build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
+COPY pom.xml .
+RUN mvn -B -q dependency:go-offline
 COPY . .
-RUN ./mvnw clean package -DskipTests
+RUN mvn -B -DskipTests package
 
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:17-jre
 WORKDIR /app
+RUN addgroup --system app && adduser --system --ingroup app app
 COPY --from=build /app/target/*.jar app.jar
-CMD ["java","-jar","app.jar"]
+RUN chown app:app app.jar
+USER app
+ENV JAVA_OPTS=""
+CMD ["sh","-c","java $JAVA_OPTS -jar app.jar"]
